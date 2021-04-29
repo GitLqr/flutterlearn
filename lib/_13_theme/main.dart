@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterlearn/_13_theme/shared/app_theme.dart';
 
 main() => runApp(MyApp());
 
@@ -8,31 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // 1. 亮度
-        brightness: Brightness.light,
-        // 2. primarySwatch传入不是Color，而是MaterialColor(包含了primaryColor和accentColor)
-        primarySwatch: Colors.blue,
-        // 3. primaryColor：单独设置导航和TabBar的颜色
-        primaryColor: Colors.orange,
-        // 4. accentColor：单独设置FloatingActionButton、Switch的颜色
-        accentColor: Colors.green,
-        // 5. Button主题
-        buttonTheme: ButtonThemeData(
-          height: 25,
-          minWidth: 10,
-          buttonColor: Colors.yellow,
-        ),
-        // 6. Card主题
-        cardTheme: CardTheme(
-          color: Colors.greenAccent,
-          elevation: 10,
-        ),
-        // 7. Text主题
-        textTheme: TextTheme(
-          bodyText2: TextStyle(fontSize: 16),
-        ),
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: HomePage(),
     );
   }
