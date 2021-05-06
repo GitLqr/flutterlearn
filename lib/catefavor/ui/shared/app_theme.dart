@@ -13,6 +13,7 @@ class AppTheme {
   static final Color lightColors = Colors.red;
   static final ThemeData lightTheme = ThemeData(
     primarySwatch: Colors.pink,
+    accentColor: Colors.amber,
     canvasColor: Color.fromRGBO(255, 254, 222, 1), // 背景色
     textTheme: TextTheme(
       body1: TextStyle(fontSize: bodyFontSize),

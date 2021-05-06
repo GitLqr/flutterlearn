@@ -11,6 +11,9 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(meal.title)),
       body: DetailContent(meal),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.favorite_border),
+      ),
     );
   }
 }

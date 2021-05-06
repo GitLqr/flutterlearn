@@ -9,14 +9,19 @@ class DetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          buildBannerImage(),
-          buildMakeTitle(context, "制作材料"),
-          buildMakeMaterial(),
-          buildMakeSteps(),
-        ],
+    return Container(
+      width: double.infinity,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            buildBannerImage(),
+            buildMakeTitle(context, "制作材料"),
+            buildMakeMaterial(context),
+            buildMakeTitle(context, "制作步骤"),
+            buildMakeSteps(context),
+          ],
+        ),
       ),
     );
   }
@@ -29,9 +34,9 @@ class DetailContent extends StatelessWidget {
   }
 
   // 2. 制作材料
-  Widget buildMakeMaterial() {
-    return Container(
-      color: Colors.orange,
+  Widget buildMakeMaterial(BuildContext context) {
+    return buildMakeContent(
+      context: context,
       child: ListView.builder(
         // 压缩包裹(默认ListView会尽可能占据父widget的高度, 但Column又需要子widget有明确高度, 两者冲突, 所以需要把ListView的高度设置为包裹内容)
         shrinkWrap: true,
@@ -42,8 +47,9 @@ class DetailContent extends StatelessWidget {
         itemCount: _meal.ingredients.length,
         itemBuilder: (ctx, index) {
           return Card(
+            color: Theme.of(context).accentColor,
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: EdgeInsets.symmetric(vertical: 5.px, horizontal: 10.px),
               child: Text(_meal.ingredients[index]),
             ),
           );
@@ -53,8 +59,27 @@ class DetailContent extends StatelessWidget {
   }
 
   // 3. 制作步骤
-  Widget buildMakeSteps() {
-    return Text("制作步骤");
+  Widget buildMakeSteps(BuildContext context) {
+    return buildMakeContent(
+      context: context,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemCount: _meal.steps.length,
+        itemBuilder: (ctx, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              child: Text("#${index + 1}"),
+            ),
+            title: Text(_meal.steps[index]),
+          );
+        },
+        separatorBuilder: (ctx, index) {
+          return Divider();
+        },
+      ),
+    );
   }
 
   // 4. 公共方法
@@ -68,6 +93,19 @@ class DetailContent extends StatelessWidget {
             .display3
             .copyWith(fontWeight: FontWeight.bold),
       ),
+    );
+  }
+
+  Widget buildMakeContent({BuildContext context, Widget child}) {
+    return Container(
+      padding: EdgeInsets.all(8.px),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(8.px),
+      ),
+      width: MediaQuery.of(context).size.width - 30.px,
+      child: child,
     );
   }
 }
