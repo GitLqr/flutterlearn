@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyLocalizations {
   final Locale locale;
@@ -9,18 +12,20 @@ class MyLocalizations {
     return Localizations.of(context, MyLocalizations);
   }
 
-  static Map<String, Map<String, String>> _localizeValues = {
-    "en": {
-      "title": "Home",
-      "hello": "Hello~",
-      "pickTime": "Pick a Time~",
-    },
-    "zh": {
-      "title": "首页",
-      "hello": "您好~",
-      "pickTime": "选择一个时间~",
-    }
-  };
+  static Map<String, Map<String, String>> _localizeValues = {};
+
+  Future loadJson() async {
+    // 1. 加载json文件
+    final jsonString = await rootBundle.loadString("assets/i18n.json");
+    // 2. 对json进行解析
+    Map<String, dynamic> map = json.decode(jsonString);
+
+    _localizeValues = map.map((key, value) {
+      return MapEntry(key, value.cast<String, String>());
+    });
+
+    return _localizeValues;
+  }
 
   String get title {
     return _localizeValues[locale.languageCode]['title'];

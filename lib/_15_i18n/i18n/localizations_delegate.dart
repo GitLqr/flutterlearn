@@ -16,8 +16,14 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
     return false;
   }
 
+  // @override
+  // Future<MyLocalizations> load(Locale locale) {
+  //   return SynchronousFuture(MyLocalizations(locale));
+  // }
+
   @override
-  Future<MyLocalizations> load(Locale locale) {
-    return SynchronousFuture(MyLocalizations(locale));
+  Future<MyLocalizations> load(Locale locale) async {
+    final localizations = MyLocalizations(locale);
+    return await localizations.loadJson();
   }
 }
