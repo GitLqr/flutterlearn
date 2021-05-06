@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterlearn/catefavor/ui/pages/home/home_drawer.dart';
 import 'package:flutterlearn/catefavor/ui/pages/main/initialize_items.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
         index: _currentIndex,
         children: pages,
       ),
+      drawer: HomeDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         selectedFontSize: 14,
