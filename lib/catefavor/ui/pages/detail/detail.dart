@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterlearn/catefavor/core/model/meal_model.dart';
+import 'package:flutterlearn/catefavor/ui/pages/detail/detail_content.dart';
 
 class DetailScreen extends StatelessWidget {
   static final routeName = "/detail";
@@ -9,7 +10,7 @@ class DetailScreen extends StatelessWidget {
     final meal = ModalRoute.of(context).settings.arguments as MealModel;
     return Scaffold(
       appBar: AppBar(title: Text(meal.title)),
-      body: Center(child: Text(meal.title)),
+      body: DetailContent(meal),
     );
   }
 }
