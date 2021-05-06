@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterlearn/catefavor/core/extension/int_extension.dart';
+import 'package:flutterlearn/catefavor/ui/pages/filter/filter.dart';
 
 class HomeDrawer extends StatelessWidget {
   @override
@@ -11,10 +12,11 @@ class HomeDrawer extends StatelessWidget {
           children: [
             buildHeaderView(context),
             buildListTile(context, Icon(Icons.restaurant), "进餐", () {
+              // 关闭drawer
               Navigator.of(context).pop();
             }),
             buildListTile(context, Icon(Icons.settings), "过滤", () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(FilterScreen.routeName);
             }),
           ],
         ),
