@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterlearn/catefavor/core/model/meal_model.dart';
 import 'package:flutterlearn/catefavor/core/extension/int_extension.dart';
+import 'package:flutterlearn/catefavor/core/viewmodel/favor_view_model.dart';
 import 'package:flutterlearn/catefavor/ui/pages/detail/detail.dart';
+import 'package:provider/provider.dart';
 
 import 'operation_item.dart';
 
@@ -73,15 +75,36 @@ class MealItem extends StatelessWidget {
 
   Widget buildOperationInfo() {
     return Padding(
-      padding: EdgeInsets.all(16.px),
+      padding: EdgeInsets.zero,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           OperationItem(Icon(Icons.schedule), "${_meal.duration}分钟"),
           OperationItem(Icon(Icons.restaurant), "${_meal.complexityStr}"),
-          OperationItem(Icon(Icons.favorite), "未收藏"),
+          buildFavorItem(),
         ],
       ),
+    );
+  }
+
+  Widget buildFavorItem() {
+    return Consumer<FavorViewModel>(
+      builder: (ctx, favorVM, child) {
+        final iconData =
+            favorVM.isFavor(_meal) ? Icons.favorite : Icons.favorite_border;
+        final favorColor = favorVM.isFavor(_meal) ? Colors.red : Colors.black;
+        final title = favorVM.isFavor(_meal) ? "收藏" : "未收藏";
+        return GestureDetector(
+          child: OperationItem(
+            Icon(iconData, color: favorColor),
+            title,
+            textColor: favorColor,
+          ),
+          onTap: () {
+            favorVM.handleMeal(_meal);
+          },
+        );
+      },
     );
   }
 }

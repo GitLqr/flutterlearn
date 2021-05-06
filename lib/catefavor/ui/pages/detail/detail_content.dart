@@ -9,19 +9,16 @@ class DetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            buildBannerImage(),
-            buildMakeTitle(context, "制作材料"),
-            buildMakeMaterial(context),
-            buildMakeTitle(context, "制作步骤"),
-            buildMakeSteps(context),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          buildBannerImage(),
+          buildMakeTitle(context, "制作材料"),
+          buildMakeMaterial(context),
+          buildMakeTitle(context, "制作步骤"),
+          buildMakeSteps(context),
+        ],
       ),
     );
   }
@@ -29,6 +26,7 @@ class DetailContent extends StatelessWidget {
   // 1. 横幅图片
   Widget buildBannerImage() {
     return Container(
+      width: double.infinity,
       child: Image.network(_meal.imageUrl),
     );
   }
